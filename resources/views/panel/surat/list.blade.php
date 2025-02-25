@@ -252,6 +252,11 @@
                                                                 data-bs-target="#acceptModalKetua{{ $value->id }}">
                                                                 <i class="bi bi-check-lg"></i>
                                                             </button>
+                                                            <button type="button" class="btn btn-sm btn-danger"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#rejectModalKetua{{ $value->id }}">
+                                                                <i class="bi bi-x-lg"></i>
+                                                            </button>
                                                         </div>
 
                                                         <!-- Modal Acc Ketua -->
@@ -285,6 +290,46 @@
                                                                                 <button type="submit"
                                                                                     class="btn btn-success">Ya,
                                                                                     Setujui</button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Modal Tolak Tolak -->
+                                                        <div class="modal fade" id="rejectModalKetua{{ $value->id }}"
+                                                            tabindex="-1">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title">Konfirmasi Penolakan</h5>
+                                                                        <button type="button" class="btn-close"
+                                                                            data-bs-dismiss="modal"
+                                                                            aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <p>Apakah Anda yakin ingin menolak surat ini?</p>
+                                                                        <form
+                                                                            action="{{ route('surat.updateStatus', $value->id) }}"
+                                                                            method="POST">
+                                                                            @csrf
+                                                                            @method('PUT')
+                                                                            <div class="mb-3">
+                                                                                <label for="keterangan"
+                                                                                    class="form-label">Alasan
+                                                                                    Penolakan</label>
+                                                                                <textarea class="form-control" name="keterangan" id="keterangan" rows="3" required></textarea>
+                                                                            </div>
+                                                                            <input type="hidden" name="status"
+                                                                                value="rejected">
+                                                                            <div class="modal-footer">
+                                                                                <button type="button"
+                                                                                    class="btn btn-secondary"
+                                                                                    data-bs-dismiss="modal">Batal</button>
+                                                                                <button type="submit"
+                                                                                    class="btn btn-danger">Ya,
+                                                                                    Tolak</button>
                                                                             </div>
                                                                         </form>
                                                                     </div>

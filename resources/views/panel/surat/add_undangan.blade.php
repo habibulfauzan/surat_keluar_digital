@@ -65,7 +65,7 @@
                                 <div class="col-md-3">
                                     <div class="form-floating">
                                         <input type="date" class="form-control" id="floatingTanggal" name="tanggal"
-                                            placeholder="Tanggal" required>
+                                            required>
                                         <label for="floatingTanggal">Tanggal</label>
                                     </div>
                                 </div>
@@ -91,7 +91,13 @@
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </form><!-- End floating Labels Form -->
+                        <script>
+                            // Mendapatkan tanggal saat ini
+                            const today = new Date().toISOString().split('T')[0];
 
+                            // Mengatur atribut max pada input tanggal
+                            document.getElementById('floatingTanggal').setAttribute('min', today);
+                        </script>
                     </div>
                 </div>
 

@@ -86,6 +86,12 @@
                         </a>
                     </li>
                     <li>
+                    <li>
+                        <a href="{{ url('panel/surat/add_tugas') }}">
+                            <i class="bi bi-circle"></i><span>Surat Tugas LPM</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ url('panel/surat/add_lainnya') }}">
                             <i class="bi bi-circle"></i><span>Lainnya</span>
                         </a>

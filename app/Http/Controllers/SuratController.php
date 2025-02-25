@@ -10,6 +10,7 @@ use App\Models\PermissionRoleModel;
 use chillerlan\QRCode\QRCode;
 use chillerlan\QRCode\QROptions;
 use NcJoes\OfficeConverter\OfficeConverter;
+use Carbon\Carbon;
 
 
 class SuratController extends Controller
@@ -45,6 +46,11 @@ class SuratController extends Controller
         return view('panel/surat/add_pengantar');
     }
 
+    public function surat_tugas()
+    {
+        return view('panel/surat/add_tugas');
+    }
+
     public function surat_lainnya()
     {
         return view('panel/surat/add_lainnya');
@@ -52,6 +58,9 @@ class SuratController extends Controller
     // SURAT UNDANGAN
     public function addUndangan(Request $request)
     {
+        $request->validate([
+            'tanggal' => 'required|after_or_equal:' . Carbon::now(),
+        ]);
         // Ambil data dari form
         $nomor = $request->nomor;
         $template_nomor = $request->template_nomor;
@@ -158,6 +167,57 @@ class SuratController extends Controller
         // return response()->download(storage_path('app/public/draft_surat/' . $filename))->deleteFileAfterSend(false);
     }
 
+    //SURAT addTugas
+    public function addTugas(Request $request)
+    {
+        // dd($request->all());
+        // Ambil data dari form
+        $anggota = $request->input('anggota');
+        $nomor = $request->nomor;
+        $dasar = $request->dasar;
+        $untuk = $request->untuk;
+
+        // Proses template
+        $templateProcessor = new TemplateProcessor(storage_path('app/public/template_surat/surat_tugas.docx'));
+
+        // Isi data utama
+        $templateProcessor->setValue('nomor', $nomor);
+        $templateProcessor->setValue('dasar', $dasar);
+        $templateProcessor->setValue('untuk', $untuk);
+        $templateProcessor->setValue('date', date('d F Y'));
+        $templateProcessor->setValue('no_bulan', date('m'));
+        $templateProcessor->setValue('no_tahun', date('Y'));
+
+        // Clone row tabel
+        $templateProcessor->cloneRow('row.no', count($anggota));
+
+        // Isi data barang
+        foreach ($anggota as $index => $item) {
+            $rowNumber = $index + 1;
+            $templateProcessor->setValue("row.no#$rowNumber", $rowNumber);
+            $templateProcessor->setValue("row.nama#$rowNumber", $item['nama']);
+            $templateProcessor->setValue("row.nip#$rowNumber", $item['nip']);
+            $templateProcessor->setValue("row.pangkat#$rowNumber", $item['pangkat']);
+            $templateProcessor->setValue("row.jabatan#$rowNumber", $item['jabatan']);
+        }
+
+        // Simpan dokumen ke file sementara
+        $fileName = $nomor . '_' . $nomor . '.docx';
+        $tempFile = storage_path('app/public/draft_surat/' . $fileName);
+        $templateProcessor->saveAs($tempFile);
+        // Simpan data ke database
+        SuratModel::create([
+            'nomor' => $request->nomor,
+            'template_nomor' => 'Un.04/Ka.LPM/HM.01',
+            'nama' => $request->dasar,
+            'kepada' => $request->untuk,
+            'file_path' => 'draft_surat/' . $fileName, // Simpan path file ke database
+        ]);
+        // Download file
+        return redirect('panel/surat/add_tugas')->with('success', 'Surat Pengantar Berhasil Dibuat.');
+        // return response()->download(storage_path('app/public/draft_surat/' . $filename))->deleteFileAfterSend(false);
+    }
+
     public function addManual(Request $request)
     {
         $request->validate([
@@ -205,14 +265,14 @@ class SuratController extends Controller
         // Validasi input file
         $request->validate([
             'wordFile' => 'required|mimes:docx|max:2048', // File harus berupa .docx dan maksimal 2MB
-            'nomor' => 'required|number',
+            // 'nomor' => 'required|number',
             'hal' => 'required|string',
             'kepada' => 'required|string'
         ], [
             'wordFile.required' => 'File harus diunggah.',
             'wordFile.mimes' => 'File harus berupa DOCX.',
             'wordFile.max' => 'Ukuran file tidak boleh lebih dari 2MB.',
-            'nomor.required' => 'Nomor harus diisi.',
+            // 'nomor.required' => 'Nomor harus diisi.',
             'hal.required' => 'Hal harus diisi.',
             'kepada.required' => 'Kepada harus diisi.'
         ]);
@@ -281,6 +341,9 @@ class SuratController extends Controller
             } elseif (Auth::user()->role->name == 'Sekretaris 2' && $surat->status == 'accepted') {
                 $surat->status = 'rejected';
                 $surat->ket = $request->keterangan;
+            } elseif (Auth::user()->role->name == 'Ketua' && $surat->status == 'completed') {
+                $surat->status = 'rejected';
+                $surat->ket = $request->keterangan;
             } else {
                 return redirect()->route('surat.index')->with('error', 'Anda tidak memiliki izin untuk melakukan aksi ini.');
             }
@@ -294,12 +357,13 @@ class SuratController extends Controller
                 // Generate nama file yang valid
                 $fileName = 'acc_' . $surat->nomor . '_' . str_replace(' ', '_', $surat->nama) . '.docx';
                 $pdfFileName = bin2hex(random_bytes(2)) . '_' . $surat->nomor . '_' . str_replace(' ', '_', $surat->nama) . '.pdf';
-
+                $string = $surat->template_nomor;
+                $parts = explode("Un.04/Ka.LPM/", $string);
                 // Path untuk menyimpan file Word sementara
-                $tempWordFilePath = storage_path('app/public/Surat/PP.00.9/' . $fileName);
+                $tempWordFilePath = storage_path('app/public/Surat/' . $parts[1] . '/' . $fileName);
 
                 // Pastikan direktori output ada
-                $outputDir = storage_path('app/public/Surat/PP.00.9');
+                $outputDir = storage_path('app/public/Surat/' . $parts[1]);
                 if (!is_dir($outputDir)) {
                     mkdir($outputDir, 0755, true); // Buat direktori jika tidak ada
                 }
@@ -308,7 +372,7 @@ class SuratController extends Controller
                 $templateProcessor = new TemplateProcessor($templatePath);
 
                 // Generate QR code
-                $data = url("/storage/Surat/PP.00.9/{$pdfFileName}");
+                $data = url("/storage/Surat/$parts[1]/{$pdfFileName}");
                 $options = new QROptions([
                     'version'    => 5, // Versi QR Code
                     'outputType' => QRCode::OUTPUT_IMAGE_PNG, // Format output (PNG)
@@ -341,7 +405,7 @@ class SuratController extends Controller
 
                 // Simpan path file PDF ke database
                 $surat->update([
-                    'file_path' => 'Surat/PP.00.9/' . $pdfFileName,
+                    'file_path' => 'Surat/' . $parts[1] . '/' . $pdfFileName,
                 ]);
             } else {
                 return redirect()->route('surat.index')->with('error', 'Anda tidak memiliki izin untuk melakukan aksi ini.');

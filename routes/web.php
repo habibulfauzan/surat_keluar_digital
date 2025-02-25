@@ -41,10 +41,12 @@ Route::group(['middleware' => 'useradmin'], function () {
     Route::get('panel/surat/all', [SuratController::class, 'all']);
     Route::get('panel/surat/add_undangan', [SuratController::class, 'surat_undangan']);
     Route::get('panel/surat/add_pengantar', [SuratController::class, 'surat_pengantar']);
+    Route::get('panel/surat/add_tugas', [SuratController::class, 'surat_tugas']);
     Route::get('panel/surat/add_lainnya', [SuratController::class, 'surat_lainnya']);
 
     Route::post('/addUndangan', [SuratController::class, 'addUndangan'])->name('add.Undangan');
     Route::post('/addPengantar', [SuratController::class, 'addPengantar'])->name('add.pengantar');
+    Route::post('/addTugas', [SuratController::class, 'addTugas'])->name('add.tugas');
     Route::post('/addManual', [SuratController::class, 'addManual'])->name('add.manual');
     Route::post('/addLainnya', [SuratController::class, 'addLainnya'])->name('add.lainnya');
 
