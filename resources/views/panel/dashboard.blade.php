@@ -1,5 +1,5 @@
 @extends('panel.layouts.app')
-
+@section('title', 'Dashboard')
 @section('content')
     <div class="pagetitle">
         <h1>Dashboard</h1>
@@ -116,7 +116,7 @@
                                 <h5 class="card-title">Total <span>| Surat</span></h5>
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <i class="ri-mail-line"></i>
+                                        <i class="ri-mail-line text-success"></i>
                                     </div>
                                     <div class="ps-3">
                                         <h6>{{ $jumlahIsOk + $jumlahRejected + $jumlahPending }}</h6>
@@ -242,7 +242,7 @@
                                     }
                                 ];
                                 echarts.init(document.querySelector("#trafficChart")).setOption({
-                                    color: ['#5570c7', '#fac858', '#ef6766'], // Warna: Hijau, Kuning, Merah
+                                    color: ['#198754', '#fac858', '#ef6766'], // Warna: Hijau, Kuning, Merah
                                     tooltip: {
                                         trigger: 'item'
                                     },

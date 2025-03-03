@@ -1,4 +1,5 @@
 @extends('panel.layouts.app')
+@section('title', 'LPM - Edit Role')
 
 @section('content')
     <div class="pagetitle">
@@ -81,7 +82,7 @@
 
                             <div class="row mb-3">
                                 <div class="col-sm-12" style="text-align: right">
-                                    <button type="submit" class="btn btn-primary">Update</button>
+                                    <button type="submit" class="btn btn-success">Update</button>
                                 </div>
                             </div>
 

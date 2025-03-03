@@ -17,7 +17,7 @@
 
         <li class="nav-item">
             <a class="nav-link @if (Request::segment(2) != 'dashboard') collapsed @endif" href="{{ url('panel/dashboard') }}">
-                <i class="bi bi-grid"></i>
+                <i class="bi bi-grid text-success"></i>
                 <span>Dashboard</span>
             </a>
         </li><!-- End Dashboard Nav -->
@@ -25,14 +25,14 @@
         @if (!empty($PermissionSuratKeluar))
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#surat-keluar" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-menu-button-wide"></i><span>Surat Keluar</span><i
+                    <i class="bi bi-menu-button-wide text-success"></i><span>Surat Keluar</span><i
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 @if (!empty($PermissionAksi))
                     <ul id="surat-keluar" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <li>
                             <a href="{{ url('panel/surat') }}">
-                                <i class="bi bi-circle"></i><span>Menunggu Verifikasi</span>
+                                <i class="bi bi-circle "></i><span>Menunggu Verifikasi</span>
                             </a>
                         </li>
                     </ul>
@@ -71,7 +71,7 @@
         @if (!empty($PermissionBuatSurat))
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-menu-button-wide"></i><span>Buat Surat</span><i
+                    <i class="bi bi-menu-button-wide text-success"></i><span>Buat Surat</span><i
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -142,11 +142,11 @@
         </li><!-- End Charts Nav --> --}}
         @endif
         @if (!empty($PermissionUser))
-            <li class="nav-heading">Account</li>
+            <li class="nav-heading ">Account</li>
 
             <li class="nav-item">
                 <a class="nav-link @if (Request::segment(2) != 'user') collapsed @endif" href="{{ url('panel/user') }}">
-                    <i class="bi bi-person"></i>
+                    <i class="bi bi-person text-success"></i>
                     <span>User</span>
                 </a>
             </li>
@@ -155,7 +155,7 @@
         @if (!empty($PermissionRole))
             <li class="nav-item">
                 <a class="nav-link @if (Request::segment(2) != 'role') collapsed @endif" href="{{ url('panel/role') }}">
-                    <i class="bi bi-person"></i>
+                    <i class="bi bi-person text-success"></i>
                     <span>Role</span>
                 </a>
             </li>

@@ -1,4 +1,5 @@
 @extends('panel.layouts.app')
+@section('title', 'LPM - Surat Ditolak')
 
 @section('content')
     <div class="pagetitle">

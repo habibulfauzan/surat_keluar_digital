@@ -1,4 +1,5 @@
 @extends('panel.layouts.app')
+@section('title', 'LPM - Lainnya')
 
 @section('content')
     <div class="pagetitle">
@@ -69,7 +70,7 @@
                             </div>
                             <div class="text-end">
                                 <button type="reset" class="btn btn-secondary">Reset</button>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-success">Submit</button>
                             </div>
                         </form><!-- End Multi Columns Form -->
 

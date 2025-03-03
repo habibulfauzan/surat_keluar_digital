@@ -1,4 +1,5 @@
 @extends('panel.layouts.app')
+@section('title', 'LPM - Buat Surat Undangan')
 
 @section('content')
     <div class="pagetitle">
@@ -88,7 +89,7 @@
 
                             <div class="text-end">
                                 <button type="reset" class="btn btn-secondary">Reset</button>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-success">Submit</button>
                             </div>
                         </form><!-- End floating Labels Form -->
                         <script>

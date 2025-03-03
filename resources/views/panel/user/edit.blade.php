@@ -1,8 +1,9 @@
 @extends('panel.layouts.app')
+@section('title', 'LPM - Edit User')
 
 @section('content')
     <div class="pagetitle">
-        <h1>Edit User User</h1>
+        <h1>Edit User</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('') }}">Home</a></li>
@@ -19,7 +20,7 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Edit User User</h5>
+                        <h5 class="card-title">Edit User</h5>
 
                         <form action="" method="post">
                             @csrf
@@ -62,7 +63,7 @@
 
                             <div class="row mb-3">
                                 <div class="col-sm-12" style="text-align: right">
-                                    <button type="submit" class="btn btn-primary">Update</button>
+                                    <button type="submit" class="btn btn-success">Update</button>
                                 </div>
                             </div>
 

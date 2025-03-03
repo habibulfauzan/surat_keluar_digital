@@ -1,4 +1,5 @@
 @extends('panel.layouts.app')
+@section('title', 'LPM - Buat Surat Tugas')
 <script>
     function addRow() {
         const table = document.getElementById("itemsTable");
@@ -115,7 +116,7 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <button type="button" class="btn btn-primary" onclick="addRow()">Tambah
+                                        <button type="button" class="btn btn-success" onclick="addRow()">Tambah
                                             anggota</button>
                                     </div>
                                 </div>
@@ -128,7 +129,7 @@
 
                             <div class="text-end">
                                 <button type="reset" class="btn btn-secondary">Reset</button>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-success">Submit</button>
                             </div>
                         </form><!-- End floating Labels Form -->
 

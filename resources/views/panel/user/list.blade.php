@@ -1,4 +1,5 @@
 @extends('panel.layouts.app')
+@section('title', 'LPM - List User')
 
 @section('content')
     <div class="pagetitle">
@@ -23,7 +24,7 @@
                             </div>
                             <div class="col-md-6" style="text-align: right">
                                 @if (!@empty($PermissionAdd))
-                                    <a class="btn btn-primary btn-sm" style="margin-top: 10px"
+                                    <a class="btn btn-success btn-sm" style="margin-top: 10px"
                                         href="{{ url('panel/user/add') }}">
                                         <i class="bi bi-plus-lg"></i>
                                     </a>
@@ -52,7 +53,7 @@
                                             <td>{{ $value->role_name }}</td>
                                             <td>
                                                 <a href="{{ url('panel/user/edit/' . $value->id) }}"
-                                                    class="btn btn-sm btn-primary"> Edit </a>
+                                                    class="btn btn-sm btn-success"> Edit </a>
                                                 <a href="{{ url('panel/user/delete/' . $value->id) }}"
                                                     class="btn btn-sm btn-danger"> Delete </a>
                                             </td>

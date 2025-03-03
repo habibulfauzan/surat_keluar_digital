@@ -1,4 +1,5 @@
 @extends('panel.layouts.app')
+@section('title', 'LPM - List Semua Surat')
 
 @section('content')
     <div class="pagetitle">
@@ -61,15 +62,15 @@
                                         </td> --}}
                                             <td class="text-center">
                                                 @if ($value->status == 'rejected')
-                                                    <span class="badge bg-danger">
+                                                    <span class="badge bg-danger  text-light">
                                                         <i class="bi bi-x-lg" aria-placeholder="A"></i>
                                                     </span>
                                                 @elseif ($value->status == 'pending' || $value->status == 'accepted' || $value->status == 'completed')
-                                                    <span class="badge bg-warning">
+                                                    <span class="badge bg-warning  text-light">
                                                         <i class="bi bi-clock-history"></i>
                                                     </span>
                                                 @else
-                                                    <span class="badge bg-success">
+                                                    <span class="badge bg-success text-light">
                                                         <i class="bi bi-check-lg"></i>
                                                         </button>
                                                 @endif

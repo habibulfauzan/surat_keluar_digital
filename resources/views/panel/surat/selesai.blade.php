@@ -1,4 +1,5 @@
 @extends('panel.layouts.app')
+@section('title', 'LPM - Surat Selesai')
 
 @section('content')
     <div class="pagetitle">
@@ -24,7 +25,7 @@
                             </div>
                             <div class="col-md-6 text-end">
                                 <!-- Button Trigger Modal -->
-                                <button type="button" class="btn btn-primary btn-sm" style="margin-top: 10px"
+                                <button type="button" class="btn btn-success btn-sm" style="margin-top: 10px"
                                     data-bs-toggle="modal" data-bs-target="#addSuratModal">
                                     <i class="bi bi-plus-lg"></i>
                                 </button>
@@ -145,7 +146,7 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary btn-sm"
                                                 data-bs-dismiss="modal">Tutup</button>
-                                            <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                                            <button type="submit" class="btn btn-success btn-sm">Simpan</button>
                                         </div>
                                     </form>
                                 </div>

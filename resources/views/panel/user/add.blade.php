@@ -1,4 +1,5 @@
 @extends('panel.layouts.app')
+@section('title', 'LPM - Tambah User')
 
 @section('content')
     <div class="pagetitle">
@@ -55,7 +56,7 @@
 
                             <div class="row mb-3">
                                 <div class="col-sm-12" style="text-align: right">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-success">Submit</button>
                                 </div>
                             </div>
 

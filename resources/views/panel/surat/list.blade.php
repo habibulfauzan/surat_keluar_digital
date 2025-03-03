@@ -1,5 +1,5 @@
 @extends('panel.layouts.app')
-
+@section('title', 'LPM - Menunggu Verifikasi')
 @section('content')
     <div class="pagetitle">
         <h1>Menunggu Verifikasi</h1>

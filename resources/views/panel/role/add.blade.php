@@ -1,8 +1,9 @@
 @extends('panel.layouts.app')
+@section('title', 'LPM - Tambah Role')
 
 @section('content')
     <div class="pagetitle">
-        <h1>Add New Role</h1>
+        <h1>Tambah Role Baru</h1>
     </div>
 
 
@@ -16,7 +17,7 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Add New Role</h5>
+                        <h5 class="card-title">Tambah Role Baru</h5>
 
                         <form action="" method="post" id="permissionForm">
                             @csrf
@@ -60,7 +61,7 @@
 
                             <div class="row mb-3">
                                 <div class="col-sm-12" style="text-align: right">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-success">Submit</button>
                                 </div>
                             </div>
 
