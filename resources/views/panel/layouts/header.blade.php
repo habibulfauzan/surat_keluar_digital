@@ -8,7 +8,7 @@
                 <span class="d-none d-lg-block">
                     <span class="fs-6 text-success">LEMBAGA PENJAMIN MUTU</span><br>
 
-                    <span class="fs-4 text-success d-block">UIN SUSKA RIAU</span>
+                    <span class="fs-4 text-success d-block">UIN&nbsp;&nbsp;SUSKA&nbsp;&nbsp;&nbsp;RIAU</span>
                 </span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn text-success"></i>

@@ -119,7 +119,7 @@
                                         <i class="ri-mail-line text-success"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>{{ $jumlahIsOk + $jumlahRejected + $jumlahPending }}</h6>
+                                        <h6 class="text-success">{{ $jumlahIsOk + $jumlahRejected + $jumlahPending }}</h6>
                                         <span class="text-muted small pt-1">surat</span>
 
                                     </div>
@@ -139,7 +139,7 @@
                                         <i class="bi bi-check"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>{{ $jumlahIsOk }}</h6>
+                                        <h6 class="text-success">{{ $jumlahIsOk }}</h6>
                                         <span class="text-muted small pt-1">surat</span>
 
                                     </div>
@@ -159,7 +159,7 @@
                                         <i class="bi bi-clock-history"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>{{ $jumlahPending }}</h6>
+                                        <h6 class="text-success">{{ $jumlahPending }}</h6>
                                         <span class="text-muted small pt-1">surat menunggu verifikasi</span>
                                     </div>
                                 </div>
@@ -179,7 +179,7 @@
                                         <i class="bi bi-x text-danger"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>{{ $jumlahRejected }}</h6>
+                                        <h6 class="text-success">{{ $jumlahRejected }}</h6>
                                         <span class="text-muted small pt-1">surat</span>
 
                                     </div>
