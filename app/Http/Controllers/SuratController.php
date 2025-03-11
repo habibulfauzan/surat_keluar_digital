@@ -323,32 +323,32 @@ class SuratController extends Controller
 
         // Update status
         if ($request->status == 'accepted') {
-            if (Auth::user()->role->name == 'Sekretaris 1' && $surat->status == 'pending') {
+            if (Auth::user()->role->id == 3 && $surat->status == 'pending') {
                 $surat->status = 'accepted'; // ACC Sekretaris 1
             } else {
                 return redirect()->route('surat.index')->with('error', 'Anda tidak memiliki izin untuk melakukan aksi ini.');
             }
         } elseif ($request->status == 'completed') {
-            if (Auth::user()->role->name == 'Sekretaris 2' && $surat->status == 'accepted') {
+            if (Auth::user()->role->id == 37 && $surat->status == 'accepted') {
                 $surat->status = 'completed'; // ACC Sekretaris 2
             } else {
                 return redirect()->route('surat.index')->with('error', 'Anda tidak memiliki izin untuk melakukan aksi ini.');
             }
         } elseif ($request->status == 'rejected') {
-            if (Auth::user()->role->name == 'Sekretaris 1' && $surat->status == 'pending') {
+            if (Auth::user()->role->id == 3 && $surat->status == 'pending') {
                 $surat->status = 'rejected'; // Sekretaris 1: pending -> rejected
                 $surat->ket = $request->keterangan;
-            } elseif (Auth::user()->role->name == 'Sekretaris 2' && $surat->status == 'accepted') {
+            } elseif (Auth::user()->role->id == 37 && $surat->status == 'accepted') {
                 $surat->status = 'rejected';
                 $surat->ket = $request->keterangan;
-            } elseif (Auth::user()->role->name == 'Ketua' && $surat->status == 'completed') {
+            } elseif (Auth::user()->role->id == 2 && $surat->status == 'completed') {
                 $surat->status = 'rejected';
                 $surat->ket = $request->keterangan;
             } else {
                 return redirect()->route('surat.index')->with('error', 'Anda tidak memiliki izin untuk melakukan aksi ini.');
             }
         } elseif ($request->status == 'is_ok') {
-            if (Auth::user()->role->name == 'Ketua' && $surat->status == 'completed') {
+            if (Auth::user()->role->id == 2 && $surat->status == 'completed') {
                 $surat->status = 'is_ok'; // Ketua: completed -> siap_di_print
 
                 // Path ke template file

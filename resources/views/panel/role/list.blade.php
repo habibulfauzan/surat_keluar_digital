@@ -23,12 +23,12 @@
                                 <h5 class="card-title">Role Tables </h5>
                             </div>
                             <div class="col-md-6" style="text-align: right">
-                                @if (!@empty($PermissionAdd))
+                                {{-- @if (!@empty($PermissionAdd))
                                     <a class="btn btn-success btn-sm" style="margin-top: 10px"
                                         href="{{ url('panel/role/add') }}">
                                         <i class="bi bi-plus-lg"></i>
                                     </a>
-                                @endif
+                                @endif --}}
                             </div>
                         </div>
                         <!-- Table with stripped rows -->

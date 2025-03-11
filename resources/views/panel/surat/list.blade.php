@@ -45,9 +45,9 @@
 
                                     @foreach ($getRecord as $value)
                                         @if (
-                                            (Auth::user()->role->name == 'Sekretaris 1' && $value->status == 'pending') ||
-                                                (Auth::user()->role->name == 'Sekretaris 2' && $value->status == 'accepted') ||
-                                                (Auth::user()->role->name == 'Ketua' && $value->status == 'completed'))
+                                            (Auth::user()->role->id == 3 && $value->status == 'pending') ||
+                                                (Auth::user()->role->id == 37 && $value->status == 'accepted') ||
+                                                (Auth::user()->role->id == 2 && $value->status == 'completed'))
                                             <tr>
                                                 {{-- <th scope="row">{{ $num++ }}</th> --}}
                                                 <td>
@@ -63,7 +63,7 @@
                                                 </td>
 
                                                 <td>
-                                                    @if (Auth::user()->role->name == 'Sekretaris 1' && $value->status == 'pending')
+                                                    @if (Auth::user()->role->id == 3 && $value->status == 'pending')
                                                         <!-- Tombol Aksi Sekretaris 1 -->
                                                         <div class="action-buttons">
                                                             <button type="button" class="btn btn-sm btn-success"
@@ -152,7 +152,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    @elseif(Auth::user()->role->name == 'Sekretaris 2' && $value->status == 'accepted')
+                                                    @elseif(Auth::user()->role->id == 37 && $value->status == 'accepted')
                                                         <!-- Tombol Aksi Sekretaris 2 -->
                                                         <div class="action-buttons">
                                                             <button type="button" class="btn btn-sm btn-success"
@@ -244,7 +244,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    @elseif(Auth::user()->role->name == 'Ketua' && $value->status == 'completed')
+                                                    @elseif(Auth::user()->role->id == 2 && $value->status == 'completed')
                                                         <!-- Tombol Aksi Ketua -->
                                                         <div class="action-buttons">
                                                             <button type="button" class="btn btn-sm btn-success"
