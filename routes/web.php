@@ -58,21 +58,21 @@ Route::group(['middleware' => 'useradmin'], function () {
     //NOTIF ROLE
     Route::get('/notif-surat', function () {
         $user = Auth::user();
-        $jumlahSuratPending = match ($user->role->name) {
-            'Sekretaris 1' => SuratModel::where('status', 'pending')->count(),
-            'Sekretaris 2' => SuratModel::where('status', 'accepted')->count(),
-            'Ketua' => SuratModel::where('status', 'completed')->count(),
+        $jumlahSuratPending = match ($user->role->id) {
+            3 => SuratModel::where('status', 'pending')->count(),
+            37 => SuratModel::where('status', 'accepted')->count(),
+            2 => SuratModel::where('status', 'completed')->count(),
             default => '',
         };
         return response()->json($jumlahSuratPending);
     })->name('notif.surat');
 
-    //NOTIF PEMBUAT SURAT
+    //NOTIF PEMBUAT SURAT (SURAT SELESAI)
     Route::get('/ok-surat', function () {
         $user = Auth::user();
         // Hitung jumlah surat dengan status 'completed'
-        $jumlahCompleted  = match ($user->role->name) {
-            'Pembuat Surat' => SuratModel::where('status', 'is_ok')->count(),
+        $jumlahCompleted  = match ($user->role->id) {
+            13 => SuratModel::where('status', 'is_ok')->count(),
             default => '',
         };
         // Ambil nilai terakhir dari session (default 0 jika tidak ada)
@@ -86,4 +86,18 @@ Route::group(['middleware' => 'useradmin'], function () {
 
         return response()->json($completedBaru);
     })->name('notif.completed');
+
+    //NOTIF PEMBUAT SURAT (SURAT DITOLAK)
+    Route::get('/notif-rejected', function () {
+        $user = Auth::user();
+        $jumlahRejected = match ($user->role->id) {
+            13 => SuratModel::where('status', 'rejected')->count(),
+            default => '',
+        };
+        $rejectedSebelumnya = session('last_rejected_' . $user->id, 0);
+        $rejectedBaru = max(0, $jumlahRejected - $rejectedSebelumnya);
+        session(['last_rejected_' . $user->id => $jumlahRejected]);
+
+        return response()->json($rejectedBaru);
+    })->name('notif.rejected');
 });

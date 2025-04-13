@@ -20,6 +20,7 @@
 
     <div class="notif-surat"></div>
     <div class="notif-completed"></div>
+    <div class="notif-rejected"></div>
     <script>
         setTimeout(function() {
             let alerts = document.querySelectorAll(".alert");
@@ -45,7 +46,6 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         `);
-
                         // Auto close setelah 5 detik
                         // setTimeout(function() {
                         //     $(".notif-surat .alert").fadeOut("slow", function() {
@@ -62,42 +62,71 @@
             });
         }
 
-        function cekNotifikasiCompleted() {
-            $.ajax({
-                url: "{{ route('notif.completed') }}",
-                type: "GET",
-                success: function(data) {
-                    if (data > 0) {
-                        $(".notif-completed").html(`
+        if ("{{ Auth::user()->role->id }}" === "13") {
+            function cekNotifikasiCompleted() {
+                $.ajax({
+                    url: "{{ route('notif.completed') }}",
+                    type: "GET",
+                    success: function(data) {
+                        if (data > 0) {
+                            $(".notif-completed").html(`
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             <i class="bi bi-check-circle me-1"></i>
-                            🎉 ${data} surat telah selesai! Silahkan dicetak. | Cek <a href="">Disini</a>
+                            🎉 ${data} surat telah selesai! Silahkan dicetak. | Cek <a href="{{ url('panel/surat/selesai') }}">Disini</a>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     `);
 
-                        // Auto close setelah 5 detik
-                        // setTimeout(function() {
-                        //     $(".notif-completed .alert").fadeOut("slow", function() {
-                        //         $(this).remove(); // Hapus dari DOM
-                        //     });
-                        // }, 5000);
+                            // Auto close setelah 5 detik
+                            // setTimeout(function() {
+                            //     $(".notif-completed .alert").fadeOut("slow", function() {
+                            //         $(this).remove(); // Hapus dari DOM
+                            //     });
+                            // }, 5000);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error fetching completed notifications:", error);
                     }
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error fetching completed notifications:", error);
-                }
-            });
+                });
+            }
+        }
+
+        if ("{{ Auth::user()->role->id }}" === "13") {
+            function cekNotifikasiRejected() {
+                $.ajax({
+                    url: "{{ route('notif.rejected') }}",
+                    type: "GET",
+                    success: function(data) {
+                        if (data > 0) {
+                            $(".notif-rejected").html(`
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="bi bi-check-circle me-1"></i>
+                            ${data} surat ditolak. | Cek <a href="{{ url('panel/surat/ditolak') }}">Disini</a>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    `);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error fetching completed notifications:", error);
+                    }
+                });
+            }
         }
 
         // Panggil setiap 10 detik
         setInterval(cekNotifikasi, 10000);
         setInterval(cekNotifikasiCompleted, 10000);
+        setInterval(cekNotifikasiRejected, 10000);
 
         // Jalankan sekali saat halaman dimuat
         $(document).ready(function() {
             cekNotifikasi();
-            cekNotifikasiCompleted();
+            if ("{{ Auth::user()->role->id }}" === "13") {
+                cekNotifikasiCompleted();
+                cekNotifikasiRejected();
+            }
         });
     </script>
 

@@ -18,14 +18,14 @@ class DashboardController extends Controller
         $jumlahPending = SuratModel::whereIn('status', ['pending', 'accepted', 'completed'])->count();
 
 
-        switch ($user->role->name) {
-            case 'Ketua':
+        switch ($user->role->id) {
+            case 2:
                 $jumlahSuratPending = SuratModel::where('status', 'completed')->count();
                 break;
-            case 'Sekretaris 1':
+            case 3:
                 $jumlahSuratPending = SuratModel::where('status', 'pending')->count();
                 break;
-            case 'Sekretaris 2':
+            case 37:
                 $jumlahSuratPending = SuratModel::where('status', 'accepted')->count();
                 break;
             default:
