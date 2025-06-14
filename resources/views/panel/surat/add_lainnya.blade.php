@@ -66,7 +66,7 @@
                             <div class="col-12">
                                 <label for="kepada" class="form-label">Tujuan / Kepada</label>
                                 <input type="text" class="form-control" id="kepada" name="kepada"
-                                    placeholder="1234 Main St">
+                                    placeholder="Rektor">
                             </div>
                             <div class="text-end">
                                 <button type="reset" class="btn btn-secondary">Reset</button>

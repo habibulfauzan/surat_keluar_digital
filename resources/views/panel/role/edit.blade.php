@@ -13,6 +13,24 @@
         </nav>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmationModalLabel">Konfirmasi Update</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Apakah Anda yakin ingin mengupdate role ini?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-success" id="confirmSubmit">Ya, Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <section class="section">
         <div class="row">
@@ -24,7 +42,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Edit Role</h5>
 
-                        <form action="" method="post">
+                        <form action="" method="post" id="roleForm">
                             @csrf
                             <div class="row mb-3">
                                 <label for="inputText" class="col-sm-12 col-form-label">Name</label>
@@ -34,12 +52,10 @@
                                 </div>
                             </div>
 
-
                             <div class="row mb-3">
                                 <label for="inputText" class="col-sm-12 col-form-label"
                                     style="display: block; margin-bottom: 10px;"><b>Permission</b>
                                 </label>
-
 
                                 @foreach ($getPermission as $value)
                                     @php
@@ -79,18 +95,38 @@
                                 @endforeach
                             </div>
 
-
                             <div class="row mb-3">
                                 <div class="col-sm-12" style="text-align: right">
-                                    <button type="submit" class="btn btn-success">Update</button>
+                                    <button type="button" class="btn btn-success" id="showModal">Update</button>
                                 </div>
                             </div>
 
-                        </form><!-- End General Form Elements -->
+                        </form>
 
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('roleForm');
+            const showModalBtn = document.getElementById('showModal');
+            const confirmSubmitBtn = document.getElementById('confirmSubmit');
+            const modal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+
+            showModalBtn.addEventListener('click', function() {
+                if (form.checkValidity()) {
+                    modal.show();
+                } else {
+                    form.reportValidity();
+                }
+            });
+
+            confirmSubmitBtn.addEventListener('click', function() {
+                form.submit();
+            });
+        });
+    </script>
 @endsection

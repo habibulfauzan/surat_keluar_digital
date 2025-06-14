@@ -222,6 +222,11 @@ class SuratController extends Controller
     {
         $request->validate([
             'pdfFile' => 'required|mimes:pdf', // Maksimal 2MB
+            'tanggal' => 'required|date|before_or_equal:today',
+            'nomor' => 'required|numeric',
+            'template_nomor' => 'required',
+            'hal' => 'required',
+            'kepada' => 'required',
         ]);
         if ($request->hasFile('pdfFile')) {
             $file = $request->file('pdfFile');

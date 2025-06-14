@@ -123,7 +123,7 @@
         // Jalankan sekali saat halaman dimuat
         $(document).ready(function() {
             cekNotifikasi();
-            if ("{{ Auth::user()->role->id }}" === "13") {
+            if ("{{ Auth::user()->role->id }}" == "13") {
                 cekNotifikasiCompleted();
                 cekNotifikasiRejected();
             }

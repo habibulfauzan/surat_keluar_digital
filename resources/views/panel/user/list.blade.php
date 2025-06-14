@@ -54,8 +54,15 @@
                                             <td>
                                                 <a href="{{ url('panel/user/edit/' . $value->id) }}"
                                                     class="btn btn-sm btn-success"> Edit </a>
-                                                <a href="{{ url('panel/user/delete/' . $value->id) }}"
-                                                    class="btn btn-sm btn-danger"> Delete </a>
+                                                <a href="{{ url(
+                                                    'panel/user/
+                                                                                                delete/' . $value->id,
+                                                ) }}"
+                                                    class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                                    data-bs-target="#deleteUserModal"
+                                                    data-delete-url="{{ url('panel/user/delete/' . $value->id) }}">
+                                                    Hapus
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -71,4 +78,34 @@
             </div>
         </div>
     </section>
+
+    <!-- Modal Konfirmasi Hapus -->
+    <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteUserModalLabel">Konfirmasi Hapus</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Apakah Anda yakin ingin menghapus user ini?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <a href="#" class="btn btn-danger" id="confirmDeleteBtn">Hapus</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var deleteUserModal = document.getElementById('deleteUserModal');
+            deleteUserModal.addEventListener('show.bs.modal', function(event) {
+                var button = event.relatedTarget;
+                var deleteUrl = button.getAttribute('data-delete-url');
+                var confirmBtn = document.getElementById('confirmDeleteBtn');
+                confirmBtn.setAttribute('href', deleteUrl);
+            });
+        });
+    </script>
 @endsection

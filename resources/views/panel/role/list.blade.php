@@ -56,10 +56,10 @@
                                                     <a href="{{ url('panel/role/edit/' . $value->id) }}"
                                                         class="btn btn-sm btn-success"> Edit </a>
                                                 @endif
-                                                @if (!@empty($PermissionDelete))
+                                                {{-- @if (!@empty($PermissionDelete))
                                                     <a href="{{ url('panel/role/delete/' . $value->id) }}"
                                                         class="btn btn-sm btn-danger"> Delete </a>
-                                                @endif
+                                                @endif --}}
                                             </td>
                                         </tr>
                                     @endforeach

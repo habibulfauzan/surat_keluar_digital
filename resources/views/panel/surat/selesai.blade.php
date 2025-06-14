@@ -23,13 +23,15 @@
                             <div class="col-md-6">
                                 <h5 class="card-title">List Surat Selesai</h5>
                             </div>
-                            <div class="col-md-6 text-end">
-                                <!-- Button Trigger Modal -->
-                                <button type="button" class="btn btn-success btn-sm" style="margin-top: 10px"
-                                    data-bs-toggle="modal" data-bs-target="#addSuratModal">
-                                    <i class="bi bi-plus-lg"></i>
-                                </button>
-                            </div>
+                            @if (Auth::user()->role->id == 13)
+                                <div class="col-md-6 text-end">
+                                    <!-- Button Trigger Modal -->
+                                    <button type="button" class="btn btn-success btn-sm" style="margin-top: 10px"
+                                        data-bs-toggle="modal" data-bs-target="#addSuratModal">
+                                        <i class="bi bi-plus-lg"></i>
+                                    </button>
+                                </div>
+                            @endif
                         </div>
                         <!-- Table with stripped rows -->
                         <div class="table-responsive">
@@ -85,7 +87,8 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
-                                    <form action="{{ route('add.manual') }}" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ route('add.manual') }}" method="POST" enctype="multipart/form-data"
+                                        id="addSuratForm">
                                         @csrf
                                         <div class="modal-body">
                                             <!-- Form Input Fields -->
@@ -122,7 +125,7 @@
                                                 <div class="col-md-6">
                                                     <label for="tanggal" class="form-label">Tanggal</label>
                                                     <input type="date" class="form-control" id="tanggal" name="tanggal"
-                                                        required>
+                                                        max="{{ date('Y-m-d') }}" required>
                                                 </div>
                                                 {{-- {{ storage_path() }} --}}
                                                 {{-- <div class="col-md-4">
@@ -145,10 +148,34 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary btn-sm"
-                                                data-bs-dismiss="modal">Tutup</button>
-                                            <button type="submit" class="btn btn-success btn-sm">Simpan</button>
+                                                data-bs-dismiss="modal">Batal</button>
+                                            <button type="submit" class="btn btn-success btn-sm"
+                                                id="submitBtn">Simpan</button>
                                         </div>
                                     </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Confirmation Modal -->
+                        <div class="modal fade" id="confirmSaveModal" tabindex="-1"
+                            aria-labelledby="confirmSaveModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="confirmSaveModalLabel">Konfirmasi Simpan</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Apakah Anda yakin ingin menyimpan data surat ini?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary btn-sm"
+                                            data-bs-dismiss="modal">Batal</button>
+                                        <button type="button" class="btn btn-success btn-sm" id="confirmSubmit">Ya,
+                                            Simpan</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -159,4 +186,25 @@
             </div>
         </div>
     </section>
+
+    <script>
+        document.getElementById('addSuratForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (this.checkValidity()) {
+                // Close first modal
+                var firstModal = bootstrap.Modal.getInstance(document.getElementById('addSuratModal'));
+                firstModal.hide();
+
+                // Show confirmation modal
+                var confirmModal = new bootstrap.Modal(document.getElementById('confirmSaveModal'));
+                confirmModal.show();
+            } else {
+                this.reportValidity();
+            }
+        });
+
+        document.getElementById('confirmSubmit').addEventListener('click', function() {
+            document.getElementById('addSuratForm').submit();
+        });
+    </script>
 @endsection
